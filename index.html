@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SCIVYT Redesign Concept | Dive X Marketing</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="SCIVYT builds the five platforms that carry research from a first question to global citation: YETZU, BEENTU AI, Submit Right, VITUOR and NationCite.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300..800;1,300..800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/web/logo.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="concept-tag mono" role="note">Concept by <b>Dive X Marketing</b> for SCIVYT · not the official website</div>
+
+<!-- cursor -->
+<div class="cursor" aria-hidden="true"><span class="cursor-dot"></span><span class="cursor-ring"><em>Open</em></span></div>
+
+<!-- preloader -->
+<div class="loader" aria-hidden="true">
+  <div class="loader-word"><span>Question</span><span>Learn</span><span>Write</span><span>Submit</span><span>Publish</span><span>Be seen</span></div>
+  <div class="loader-count mono"><span id="count">000</span></div>
+  <div class="loader-bar"><i></i></div>
+</div>
+
+<!-- header -->
+<header class="hdr">
+  <a class="brand" href="#top"><img src="assets/web/logo.png" alt=""><span>SCIVYT</span></a>
+  <nav class="nav mono">
+    <a href="#journey" data-cursor>Journey</a>
+    <a href="#platforms" data-cursor>Platforms</a>
+    <a href="#impact" data-cursor>Impact</a>
+    <a href="#people" data-cursor>People</a>
+  </nav>
+  <a class="btn btn-sm" href="#contact" data-cursor>Book a strategy call <i class="arr">↗</i></a>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero" data-theme="dark">
+  <canvas id="field"></canvas>
+  <div class="hero-meta mono">
+    <span>SCIVYT Research Technologies</span>
+    <span>Est. 2021 · Hyderabad → 3 continents</span>
+    <span class="hide-sm">17.38° N · 78.48° E</span>
+  </div>
+  <h1 class="hero-title">
+    <span class="line"><span>Every discovery</span></span>
+    <span class="line"><span>begins as a <em>question.</em></span></span>
+  </h1>
+  <div class="hero-side">
+    <p>SCIVYT builds the five platforms that carry a question all the way to citation. Learning, writing, submission, publishing and impact, finally in one place.</p>
+    <a class="btn" href="#journey" data-cursor>Follow a question <i class="arr">↘</i></a>
+  </div>
+  <div class="hero-foot mono"><span class="scrollcue"><i></i>Scroll to follow the question</span><span>( 01 / 06 )</span></div>
+</section>
+
+<!-- ============ MANIFESTO ============ -->
+<section class="manifesto" id="manifesto" data-theme="dark">
+  <div class="kicker mono"><span class="dotx"></span>The problem we exist to solve</div>
+  <p class="mani-text" id="mani">Research today is scattered. Learning lives in one place, writing in another, submission somewhere else, and impact is rarely seen at all. <em>SCIVYT puts the whole journey under one roof.</em></p>
+  <div class="mani-arrow" aria-hidden="true"><svg viewBox="0 0 200 200"><path d="M20 180 L180 20 M70 20 H180 V130" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="square"/></svg></div>
+</section>
+
+<!-- ============ JOURNEY (pinned horizontal) ============ -->
+<section class="journey" id="journey">
+  <div class="rail mono">
+    <div class="rail-line"><i id="railFill"></i></div>
+    <div class="rail-nodes">
+      <span data-i="0">01 Learn</span><span data-i="1">02 Write</span><span data-i="2">03 Submit</span><span data-i="3">04 Publish</span><span data-i="4">05 Be seen</span>
+    </div>
+  </div>
+  <div class="track" id="track">
+
+    <article data-theme="dark" class="panel p-ink" id="platforms">
+      <div class="p-left">
+        <div class="p-num">01</div>
+        <h2 class="p-verb">Learn.</h2>
+        <p class="p-q mono">The question finds a mentor.</p>
+      </div>
+      <div class="p-right">
+        <div class="p-card">
+          <div class="p-photo" style="background-image:url(assets/web/yetzu-photo.jpg)"></div>
+          <div class="p-body">
+            <div class="p-brand"><img src="assets/images_Yetzu.png" alt=""><b>YETZU</b><span class="tag mono">Mentorship platform</span></div>
+            <p>Curriculum-aligned learning and mentorship that turns students, clinicians and early researchers into ethical, publication-ready scholars.</p>
+            <div class="ui ui-cohort">
+              <div class="row"><span>Research writing</span><i style="--w:82%"></i></div>
+              <div class="row"><span>Study design</span><i style="--w:64%"></i></div>
+              <div class="row"><span>Ethics &amp; integrity</span><i style="--w:91%"></i></div>
+            </div>
+            <a class="link mono" href="#" data-cursor>Explore YETZU ↗</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article data-theme="light" class="panel p-paper">
+      <div class="p-left">
+        <div class="p-num">02</div>
+        <h2 class="p-verb">Write.</h2>
+        <p class="p-q mono">The question becomes a manuscript.</p>
+      </div>
+      <div class="p-right">
+        <div class="p-card">
+          <div class="ui ui-doc">
+            <div class="doc-head mono"><span>manuscript_v3.docx</span><span class="ok">● Live review</span></div>
+            <p class="doc">Patients receiving <mark class="m1">heparin showed a significant decrease</mark> in mortality <mark class="m2">(p &lt; 0.05)</mark>, suggesting anticoagulant therapy <mark class="m3">may improve outcomes</mark> in hospitalised patients.</p>
+            <div class="doc-notes mono"><span><i class="c1"></i>Clarity</span><span><i class="c2"></i>Citation needed</span><span><i class="c3"></i>Hedge claim</span></div>
+            <div class="ring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42"/><circle class="on" cx="50" cy="50" r="42"/></svg><b>86<small>%</small></b><span class="mono">journal ready</span></div>
+          </div>
+          <div class="p-body">
+            <div class="p-brand"><img src="assets/images_BeentuAI.png" alt=""><b>BEENTU AI</b><span class="tag mono">AI writing assistant</span></div>
+            <p>An academic writing companion that sharpens clarity, structure and citations, and tells you how ready a paper is for its journal.</p>
+            <a class="link mono" href="#" data-cursor>Discover BEENTU AI ↗</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article data-theme="light" class="panel p-signal">
+      <div class="p-left">
+        <div class="p-num">03</div>
+        <h2 class="p-verb">Submit.</h2>
+        <p class="p-q mono">The question finds its journal.</p>
+      </div>
+      <div class="p-right">
+        <div class="p-card">
+          <div class="ui ui-track">
+            <div class="st done"><i></i><b>Language edited</b><span class="mono">done</span></div>
+            <div class="st done"><i></i><b>Journal matched</b><span class="mono">done</span></div>
+            <div class="st done"><i></i><b>Submitted</b><span class="mono">done</span></div>
+            <div class="st now"><i></i><b>Reviewer response</b><span class="mono">in progress</span></div>
+            <div class="st"><i></i><b>Accepted</b><span class="mono">next</span></div>
+          </div>
+          <div class="p-body">
+            <div class="p-brand"><img src="assets/images_SubmitRight.png" alt=""><b>Submit Right</b><span class="tag mono">Academic services</span></div>
+            <p>Editing, journal selection, submission management and reviewer responses, handled end to end with precision and accountability.</p>
+            <a class="link mono" href="#" data-cursor>Explore Submit Right ↗</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article data-theme="light" class="panel p-paper">
+      <div class="p-left">
+        <div class="p-num">04</div>
+        <h2 class="p-verb">Publish.</h2>
+        <p class="p-q mono">The question becomes knowledge.</p>
+      </div>
+      <div class="p-right">
+        <div class="p-card">
+          <div class="p-photo" style="background-image:url(assets/web/vituor-photo.jpg)"></div>
+          <div class="p-body">
+            <div class="p-brand"><img src="assets/images_Vituor.png" alt=""><b>VITUOR</b><span class="tag mono">Medical journal</span></div>
+            <p>An international, peer-reviewed medical journal with rigorous editorial oversight, open-access publishing and global visibility.</p>
+            <div class="chips mono"><span>Peer reviewed</span><span>Open access</span><span>International</span></div>
+            <a class="link mono" href="#" data-cursor>Visit VITUOR ↗</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article data-theme="dark" class="panel p-ink">
+      <div class="p-left">
+        <div class="p-num">05</div>
+        <h2 class="p-verb">Be seen.</h2>
+        <p class="p-q mono">The answer reaches the world.</p>
+      </div>
+      <div class="p-right">
+        <div class="p-card">
+          <div class="p-photo" style="background-image:url(assets/web/nationcite-photo.jpg);background-position:center 30%"></div>
+          <div class="p-body">
+            <div class="p-brand"><img src="assets/images_Nationcite.png" alt=""><b>NationCite</b><span class="tag mono">Research impact portal</span></div>
+            <p>India's research visibility platform: authenticated profiles, verified impact metrics and institutional analytics in one national view.</p>
+            <a class="link mono" href="#" data-cursor>Explore NationCite ↗</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ NUMBERS ============ -->
+<section class="numbers" id="impact" data-theme="light">
+  <div class="kicker mono"><span class="dotx"></span>By the numbers</div>
+  <h2 class="big-h">Small team. <em>Long reach.</em></h2>
+  <div class="nums">
+    <div class="num"><b data-to="2000" data-suffix="+">0</b><span class="mono">manuscripts assisted</span></div>
+    <div class="num"><b data-to="50" data-suffix="+">0</b><span class="mono">institutions reached</span></div>
+    <div class="num"><b data-to="5" data-suffix="">0</b><span class="mono">connected platforms</span></div>
+    <div class="num"><b data-to="3" data-suffix="">0</b><span class="mono">continents</span></div>
+  </div>
+  <div class="marquee" aria-label="Partner institutions">
+    <div class="mq-track">
+      <img src="assets/web/p1.png" alt=""><img src="assets/web/p2.png" alt=""><img src="assets/web/p3.png" alt=""><img src="assets/web/p4.png" alt=""><img src="assets/web/p5.png" alt=""><img src="assets/web/p6.png" alt=""><img src="assets/web/p7.png" alt=""><img src="assets/web/p8.png" alt=""><img src="assets/web/p9.png" alt=""><img src="assets/web/p10.png" alt="">
+      <img src="assets/web/p1.png" alt=""><img src="assets/web/p2.png" alt=""><img src="assets/web/p3.png" alt=""><img src="assets/web/p4.png" alt=""><img src="assets/web/p5.png" alt=""><img src="assets/web/p6.png" alt=""><img src="assets/web/p7.png" alt=""><img src="assets/web/p8.png" alt=""><img src="assets/web/p9.png" alt=""><img src="assets/web/p10.png" alt="">
+    </div>
+  </div>
+</section>
+
+<!-- ============ HYBRID INTELLIGENCE (cursor reveal) ============ -->
+<section class="hybrid" id="hybrid" data-theme="dark">
+  <div class="kicker mono"><span class="dotx"></span>Hybrid intelligence · move your cursor</div>
+  <div class="hy-stage" id="hyStage">
+    <div class="hy-layer hy-a">
+      <h2>Human<br><em>judgement.</em></h2>
+      <p>Mentors, editors and reviewers who know what good science looks like.</p>
+    </div>
+    <div class="hy-layer hy-b" id="hyB">
+      <h2>Machine<br><em>precision.</em></h2>
+      <p>AI that checks clarity, citations and compliance in seconds, never alone.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORY ============ -->
+<section class="story" data-theme="light">
+  <div class="kicker mono"><span class="dotx"></span>Our journey</div>
+  <div class="story-grid">
+    <h2 class="big-h">From an initiative<br>to an <em>ecosystem.</em></h2>
+    <ol class="tl">
+      <li><span class="mono">2021 to 2023</span><b>The foundation</b><p>A research and mentorship initiative for students, clinicians and early-career researchers.</p></li>
+      <li><span class="mono">2024</span><b>The transformation</b><p>Registered as SCIVYT Research Technologies Pvt Ltd.</p></li>
+      <li><span class="mono">2024</span><b>The expansion</b><p>Systematic reviews, meta-analyses, journal submission, training and institutional collaborations.</p></li>
+      <li><span class="mono">2025</span><b>The ecosystem</b><p>Five connected platforms, global partners and AI-assisted academic solutions.</p></li>
+    </ol>
+  </div>
+  <svg class="story-arrow" viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true"><path id="storyPath" d="M0 380 L980 20" fill="none" stroke="currentColor" stroke-width="3"/></svg>
+</section>
+
+<!-- ============ PEOPLE ============ -->
+<section class="people" id="people" data-theme="dark">
+  <div class="kicker mono"><span class="dotx"></span>The people behind the platforms</div>
+  <h2 class="big-h light">Led by researchers,<br><em>for researchers.</em></h2>
+  <ul class="ppl">
+    <li><span class="mono n">01</span><b>Dr. Yethindra Vityala</b><span class="mono r">Founder &amp; Chief Executive Officer</span></li>
+    <li><span class="mono n">02</span><b>Dr. Tugolbai Tagaev</b><span class="mono r">Chairman &amp; Director, Kyrgyzstan Operations</span></li>
+    <li><span class="mono n">03</span><b>Srilaxmi Vityala</b><span class="mono r">Co-Founder &amp; Director, Academic &amp; Research Partnerships</span></li>
+    <li><span class="mono n">04</span><b>Dr. Altynai Zhumbekova</b><span class="mono r">President &amp; Director, United States Operations</span></li>
+    <li><span class="mono n">05</span><b>Dr. Krishna Priya Kanteti</b><span class="mono r">Co-Founder &amp; Director, Academic &amp; Research Relations</span></li>
+    <li><span class="mono n">06</span><b>Dr. Ujwala Damineni</b><span class="mono r">President, Academic &amp; Publisher Partnerships</span></li>
+    <li><span class="mono n">07</span><b>Sravya Gatta</b><span class="mono r">President, Technical &amp; Product</span></li>
+    <li><span class="mono n">08</span><b>Vinay Deverakonda</b><span class="mono r">President, Global Sales &amp; Partnerships</span></li>
+  </ul>
+</section>
+
+<!-- ============ INITIATIVE ============ -->
+<section class="initiative" data-theme="dark">
+  <div class="ini-img" id="iniImg"><div style="background-image:url(assets/web/campaign.jpg)"></div></div>
+  <div class="ini-cap">
+    <div class="kicker mono"><span class="dotx"></span>Initiatives · Oct 2021 to 2022</div>
+    <h2>COVID-19 Awareness Campaign</h2>
+    <a class="link mono" href="#" data-cursor>Read the case study ↗</a>
+  </div>
+</section>
+
+<!-- ============ CTA + FOOTER ============ -->
+<section class="cta" id="contact" data-theme="light">
+  <div class="kicker mono"><span class="dotx dark"></span>Let's build the future of education and research</div>
+  <h2 class="cta-h">Start with a<br><em>question.</em></h2>
+  <div class="cta-row">
+    <a class="btn btn-dark" href="mailto:support@scivyt.com" data-cursor>Book a strategy call <i class="arr">↗</i></a>
+    <a class="mono mail" href="mailto:support@scivyt.com" data-cursor>support@scivyt.com</a>
+  </div>
+</section>
+
+<footer class="foot" data-theme="dark">
+  <div class="foot-cols mono">
+    <div><b>Platforms</b><a href="#">YETZU</a><a href="#">BEENTU AI</a><a href="#">Submit Right</a><a href="#">VITUOR</a><a href="#">NationCite</a></div>
+    <div><b>Company</b><a href="#manifesto">About</a><a href="#journey">Journey</a><a href="#people">People</a><a href="#contact">Contact</a></div>
+    <div><b>Legal</b><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+    <div><b>Offices</b><span>India</span><span>Kyrgyzstan</span><span>United States</span></div>
+  </div>
+  <div class="wordmark" aria-hidden="true">SCIVYT</div>
+  <div class="foot-base mono"><span>© 2026 SCIVYT Research Technologies Pvt Ltd</span><span>From question to citation.</span></div>
+</footer>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
