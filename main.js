@@ -148,6 +148,24 @@ function scenes() {
     });
   });
 
+  mm.add('(max-width: 860px)', () => {
+    // stacking cards: each panel sinks back as the next slides over it
+    const panels = gsap.utils.toArray('.panel');
+    panels.forEach((pn, i) => {
+      if (i < panels.length - 1) gsap.to(pn, { scale: 0.9, filter: 'brightness(.55)', ease: 'none', scrollTrigger: { trigger: panels[i + 1], start: 'top bottom', end: 'top top', scrub: true } });
+      if (i) {
+        gsap.from(pn.querySelector('.p-verb'), { yPercent: 60, autoAlpha: 0, ease: 'none', scrollTrigger: { trigger: pn, start: 'top 85%', end: 'top 25%', scrub: true } });
+        gsap.from(pn.querySelector('.p-card'), { y: 80, autoAlpha: 0, ease: 'none', scrollTrigger: { trigger: pn, start: 'top 70%', end: 'top 10%', scrub: true } });
+      }
+    });
+    const nodes = document.querySelectorAll('.rail-nodes span');
+    ScrollTrigger.create({ trigger: '.journey', start: 'top top', end: 'bottom bottom', onUpdate: s => {
+      document.getElementById('railFill').style.width = (s.progress * 100) + '%';
+      const k = Math.min(4, Math.floor(s.progress * 5)); nodes.forEach((n, idx) => n.classList.toggle('on', idx <= k)); } });
+    // people: the row crossing the middle of the screen lights up
+    gsap.utils.toArray('.ppl li').forEach(li => ScrollTrigger.create({ trigger: li, start: 'top 55%', end: 'bottom 45%', toggleClass: 'active' }));
+  });
+
   // counters
   document.querySelectorAll('.num b').forEach(b => {
     const to = +b.dataset.to, suf = b.dataset.suffix, o = { v: 0 };
@@ -162,8 +180,12 @@ function scenes() {
   stage.addEventListener('mousemove', e => { const r = stage.getBoundingClientRect(); gsap.to(hv, { x: e.clientX - r.left, y: e.clientY - r.top, duration: 0.5, ease: 'power3.out', onUpdate: setClip }); });
   stage.addEventListener('mouseenter', e => { const r = stage.getBoundingClientRect(); hv.x = e.clientX - r.left; hv.y = e.clientY - r.top; gsap.to(hv, { r: 210, duration: 0.8, ease: 'expo.out', onUpdate: setClip }); });
   stage.addEventListener('mouseleave', () => gsap.to(hv, { r: 0, duration: 0.6, ease: 'expo.inOut', onUpdate: setClip }));
-  if (isTouch) { // auto reveal on touch: sweep the circle open when scrolled into view
-    ScrollTrigger.create({ trigger: stage, start: 'top 60%', onEnter: () => { const r = stage.getBoundingClientRect(); hv.x = r.width / 2; hv.y = r.height / 2; gsap.to(hv, { r: Math.hypot(r.width, r.height), duration: 1.6, ease: 'expo.inOut', onUpdate: setClip, yoyo: true, repeat: 1, repeatDelay: 1.2 }); } });
+  if (isTouch || mobile()) { // no cursor: the circle travels and grows with the scroll
+    const grow = gsap.parseEase('power2.inOut');
+    ScrollTrigger.create({ trigger: stage, start: 'top 75%', end: 'bottom 35%', scrub: 0.6, onUpdate: s => {
+      const r = stage.getBoundingClientRect(), p = s.progress;
+      hv.x = r.width * (0.25 + 0.5 * p); hv.y = r.height * (0.7 - 0.3 * p);
+      hv.r = Math.hypot(r.width, r.height) * grow(gsap.utils.clamp(0, 1, (p - 0.15) / 0.6)); setClip(); } });
   }
 
   // story arrow draw
@@ -185,7 +207,7 @@ function scenes() {
 
 /* ---------------- header theme (reads the section under the header) ---------------- */
 const hdr = document.querySelector('.hdr'), rail = document.querySelector('.rail');
-const hdrParts = [...document.querySelectorAll('.hdr .brand, .hdr .nav a, .hdr .btn-sm')];
+const hdrParts = [...document.querySelectorAll('.hdr .brand, .hdr .nav a, .hdr .btn-sm, .hdr .burger')];
 const railParts = [...document.querySelectorAll('.rail-nodes span')];
 function isLightAt(x, y) {
   const sec = document.elementsFromPoint(x, y).map(e => e.closest && e.closest('[data-theme]')).find(Boolean);
@@ -198,6 +220,17 @@ function theme() {
 }
 hdr.style.pointerEvents = 'auto';
 let thF = 0; gsap.ticker.add(() => { if (++thF % 6 === 0) theme(); });
+
+/* ---------------- mobile menu ---------------- */
+const burger = document.getElementById('burger');
+function setMenu(open) {
+  document.body.classList.toggle('menu-open', open);
+  burger.setAttribute('aria-expanded', String(open));
+  document.getElementById('mmenu').setAttribute('aria-hidden', String(!open));
+  if (lenis) { open ? lenis.stop() : lenis.start(); }
+}
+burger.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+document.querySelectorAll('.mmenu a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 
 /* ---------------- boot ---------------- */
 Promise.all([document.fonts.load('italic 400 100px "Instrument Serif"'), document.fonts.ready, new Promise(r => logoImg.complete ? r() : (logoImg.onload = logoImg.onerror = r))]).then(() => {
