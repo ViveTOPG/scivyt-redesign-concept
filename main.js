@@ -1,5 +1,6 @@
 /* SCIVYT redesign concept, Dive X Marketing */
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({ ignoreMobileResize: true });
 const isTouch = matchMedia('(hover:none)').matches;
 const mobile = () => innerWidth <= 860;
 document.body.classList.add('loading');
@@ -7,7 +8,7 @@ document.body.classList.add('loading');
 /* ---------------- smooth scroll ---------------- */
 let lenis = null;
 if (window.Lenis) {
-  lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+  lenis = new Lenis({ lerp: 0.1, smoothWheel: true, syncTouch: true, syncTouchLerp: 0.085, touchInertiaMultiplier: 26, wheelMultiplier: 1 });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add(t => lenis.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
@@ -49,7 +50,7 @@ function sample(drawFn, count) {
   return out;
 }
 function buildShapes() {
-  DPR = Math.min(devicePixelRatio || 1, 2);
+  DPR = Math.min(devicePixelRatio || 1, mobile() ? 1.5 : 2);
   W = innerWidth; H = innerHeight;
   cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   N = mobile() ? 1100 : 2800;
@@ -74,9 +75,12 @@ const field = { intro: 0, p: 0 };
 const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 const clamp01 = v => Math.max(0, Math.min(1, v));
 function lerp(a, b, t) { return a + (b - a) * t; }
+let fieldClear = false;
 function frame(time) {
   const t = time * 0.001;
+  if (field.p >= 1 && fieldClear) return;
   ctx.clearRect(0, 0, W, H);
+  fieldClear = field.p >= 1;
   const p = field.p;
   const mA = ease(clamp01((p - 0.18) / 0.32));       // ? -> logo
   const mB = ease(clamp01((p - 0.62) / 0.3));        // logo -> network
@@ -100,7 +104,7 @@ function frame(time) {
   }
 }
 gsap.ticker.add(() => frame(performance.now()));
-let rT; addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(() => { buildShapes(); ScrollTrigger.refresh(); }, 250); });
+let rT, lastW = innerWidth; addEventListener('resize', () => { if (innerWidth === lastW) return; lastW = innerWidth; clearTimeout(rT); rT = setTimeout(() => { buildShapes(); ScrollTrigger.refresh(); }, 250); });
 
 /* ---------------- loader -> intro ---------------- */
 function intro() {
@@ -149,27 +153,35 @@ function scenes() {
   });
 
   mm.add('(max-width: 860px)', () => {
-    // stacking cards: each panel sinks back as the next slides over it
+    // stacking cards: compositor-only work (transform + opacity), nothing ever hidden
     const panels = gsap.utils.toArray('.panel');
     panels.forEach((pn, i) => {
-      if (i < panels.length - 1) gsap.to(pn, { scale: 0.9, filter: 'brightness(.55)', ease: 'none', scrollTrigger: { trigger: panels[i + 1], start: 'top bottom', end: 'top top', scrub: true } });
-      if (i) {
-        gsap.from(pn.querySelector('.p-verb'), { yPercent: 60, autoAlpha: 0, ease: 'none', scrollTrigger: { trigger: pn, start: 'top 85%', end: 'top 25%', scrub: true } });
-        gsap.from(pn.querySelector('.p-card'), { y: 80, autoAlpha: 0, ease: 'none', scrollTrigger: { trigger: pn, start: 'top 70%', end: 'top 10%', scrub: true } });
-      }
+      if (i === panels.length - 1) return;
+      const dim = pn.querySelector('.p-dim');
+      const tl = gsap.timeline({ scrollTrigger: { trigger: panels[i + 1], start: 'top bottom', end: 'top top', scrub: true } });
+      tl.to(pn.querySelector('.p-inner'), { scale: 0.92, yPercent: -4, ease: 'none' }, 0).to(dim, { opacity: 0.55, ease: 'none' }, 0);
     });
     const nodes = document.querySelectorAll('.rail-nodes span');
     ScrollTrigger.create({ trigger: '.journey', start: 'top top', end: 'bottom bottom', onUpdate: s => {
-      document.getElementById('railFill').style.width = (s.progress * 100) + '%';
+      document.getElementById('railFill').style.transform = `scaleX(${s.progress})`;
       const k = Math.min(4, Math.floor(s.progress * 5)); nodes.forEach((n, idx) => n.classList.toggle('on', idx <= k)); } });
-    // people: the row crossing the middle of the screen lights up
-    gsap.utils.toArray('.ppl li').forEach(li => ScrollTrigger.create({ trigger: li, start: 'top 55%', end: 'bottom 45%', toggleClass: 'active' }));
+    // people: the orange fill is tied to the scroll position, so it is always in sync
+    gsap.utils.toArray('.ppl li').forEach(li => {
+      const fill = document.createElement('i'); fill.className = 'pfill'; li.prepend(fill);
+      const tl = gsap.timeline({ scrollTrigger: { trigger: li, start: 'top 68%', end: 'bottom 32%', scrub: 0.4 } });
+      tl.fromTo(fill, { clipPath: 'polygon(0% 100%, 0% 100%, 0% 100%, 0% 100%)' }, { clipPath: 'polygon(0% 100%, 0% 0%, 100% 0%, 100% 100%)', ease: 'none', duration: 0.35 })
+        .to({}, { duration: 0.3 })
+        .to(fill, { clipPath: 'polygon(100% 100%, 100% 0%, 100% 0%, 100% 100%)', ease: 'none', duration: 0.35 });
+      return () => fill.remove();
+    });
   });
 
   // counters
   document.querySelectorAll('.num b').forEach(b => {
-    const to = +b.dataset.to, suf = b.dataset.suffix, o = { v: 0 };
-    gsap.to(o, { v: to, duration: 2.2, ease: 'expo.out', scrollTrigger: { trigger: b, start: 'top 85%' }, onUpdate: () => b.textContent = Math.round(o.v).toLocaleString('en-IN') + suf });
+    const to = +b.dataset.to, suf = b.dataset.suffix, o = { v: 0 }, fmt = v => Math.round(v).toLocaleString('en-IN') + suf;
+    b.innerHTML = `<span class="ghost" aria-hidden="true">${fmt(to)}</span><span class="val">${fmt(0)}</span>`;
+    const val = b.querySelector('.val');
+    gsap.to(o, { v: to, duration: 2.2, ease: 'expo.out', scrollTrigger: { trigger: b, start: 'top 85%', once: true }, onUpdate: () => { val.textContent = fmt(o.v); } });
   });
   gsap.utils.toArray('.big-h, .kicker').forEach(el => gsap.from(el, { y: 60, autoAlpha: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 88%' } }));
 
